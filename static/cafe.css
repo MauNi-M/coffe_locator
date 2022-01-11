@@ -1,0 +1,224 @@
+:root {
+    --brown-palette-lighter: #EFC3A4;
+    --brown-palette-light: #BE7656;
+    --brown-palette-regular: #794028;
+    --brown-palette-toasted: #4B1F0E;
+    --brown-palette-burned: #0E0504;
+}
+
+html{
+    height: 100%;
+}
+
+
+/*background*/
+div.container-fluid {
+    background: url("/static/images/pexels-tanya-gorelova-3933147.jpg");
+    background-size: cover;
+    color: white;
+    min-height: 100vh;
+}
+
+div.background-overlay {
+    background-image: linear-gradient(to bottom right, rgba(0, 0, 0, 0.7), rgba(255, 255, 255, 0.05));
+    min-height: 100vh;
+}
+
+/*left section*/
+section.left-section {
+}
+
+/*header*/
+header.logo{
+    text-shadow: #4B1F0E 1vh 1vh;
+}
+/*logo text*/
+header.logo h1 {
+    font-family: Pacifico, serif;
+    font-size: 5em;
+}
+
+/*introduction*/
+p.introduction {
+    font-family: Nunito, sans-serif;
+    text-justify: auto;
+    font-size: 1.1em;
+}
+
+/*social media icons*/
+div.social-media-group a i {
+    color: white;
+    font-size: 1.7em;
+}
+
+div.social-media-group a i:hover {
+    color: saddlebrown;
+}
+
+/*coffe attribute text*/
+
+a.attribute-item:hover {
+    color: var(--brown-palette-regular);
+}
+
+@media (max-width: 1200px) {
+    a.attribute-item span {
+        font-size: 0.8em;
+    }
+}
+
+/*attribute logo*/
+a.attribute-item i {
+    font-size: 3em;
+}
+
+/*cafe filters*/
+div.coffee-filter {
+    background-color: black;
+    /*border-radius: 25px 25px 0 0;*/
+    transition: background-color 200ms ease;
+}
+
+div.coffee-filter a {
+    text-decoration: none;
+    background-color: rgba(14, 5, 4, 0);
+    font-size: 1.4em;
+    width: 1.5em;
+    transition: background-color 200ms ease;
+    border-radius: 50px;
+    cursor: auto;
+}
+
+div.coffee-filter a i {
+    color: var(--brown-palette-lighter);
+}
+
+div.coffee-filter a i:hover {
+    color: white;
+}
+
+div.coffee-filter a.filter_pressed {
+    background-color: rgba(14, 5, 4, 1);
+}
+
+/*carousel*/
+div#coffee_carousel {
+    /*border-radius: 15px;*/
+}
+
+/*image container inside carousel*/
+div#coffee_carousel div.carousel-item img {
+    width: 100%;
+    height: 33vh;
+    object-fit: cover;
+    /*border-radius: 0 0 25px 25px;*/
+}
+
+/*carousel text*/
+div.carousel-caption {
+    color: rgb(236, 224, 209);
+    text-shadow: 0 0 5px var(--brown-palette-burned), 1px 1px 5px var(--brown-palette-burned), 2px 2px 5px var(--brown-palette-burned) ;
+
+}
+
+/*coffee attribute icons*/
+
+/*carousel opening hours*/
+div.carousel-caption p.open-hours {
+    font-size: 0.8em;
+}
+section.bottom-0{
+    width: 100%;
+}
+
+
+/*right section*/
+
+section.right-section{
+    height: 100vh;
+}
+@media (max-width: 768px){
+    section.right-section{
+        height: 40vh;
+    }
+}
+/*map section*/
+div.map-locator{
+    height: 100%;
+    width: 100%;
+}
+
+div#map {
+    width:100%;
+    height: 100%;
+    /*border-radius: 15px;*/
+}
+
+.marker {
+    background-image: url('/static/images/mapbox-icon.png');
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.mapboxgl-popup {
+    max-width: 200px;
+}
+
+.mapboxgl-popup-content {
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    color: black;
+}
+
+.mapboxgl-popup-content img {
+    object-fit: cover;
+    width: 100%;
+    height: auto;
+    max-height: 150px;
+}
+
+/*end map section*/
+
+
+/*customized scrollbar*/
+/*width*/
+::-webkit-scrollbar {
+    width: 8px;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+    margin-bottom: 15px;
+    border-radius: 5px;
+
+}
+
+/*track*/
+::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+    background: white;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/*footer*/
+footer{
+    background-color: #794028;
+}
+/*footer text*/
+footer p{
+    color: #BE7656;
+}
+/*photo attribution*/
+section.photo_attribution p {
+    font-size: .7em;
+}

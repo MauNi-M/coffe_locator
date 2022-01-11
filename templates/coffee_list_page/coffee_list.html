@@ -1,0 +1,28 @@
+{% for coffee in cafe_info %}
+    <a href="{{ url_for('more_info', id=coffee.id) }}">
+    <div class="card my-1 mx-5 mx-sm-4 mx-md-2 rounded-3 text-white bg-dark">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="{{ coffee.img_url }}" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body pb-1">
+                    <div class="coffee-header d-flex">
+                        <h5 class="card-title me-auto">{{ coffee.name }}</h5>
+                    <div class="coffee_attributes d-flex">
+                        {% for param in coffee_params %}
+                            {% if coffee[param] is boolean %}
+                                {% if coffee[param] == true %}
+                                    <i class="fas fa-{{ attributes[param] }} m-2"></i>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    </div>
+                    <p class="card-text mb-0"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </a>
+{% endfor %}

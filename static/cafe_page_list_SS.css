@@ -1,0 +1,67 @@
+
+/*logo*/
+
+
+/*card*/
+
+/*card image*/
+.card img{
+    width: 100%;
+    height: 12vh;
+    object-fit: cover;
+}
+
+@media (max-width: 576px){
+    .card img{
+        height: 20vh;
+    }
+
+}
+/*coffee list country*/
+div.coffee-list-container div h3{
+    font-family: Poppins, serif;
+}
+div.city-container{
+    background-color: rgba(0,0,0,0.6);
+    border-radius: 10px;
+}
+/*coffee list*/
+.coffee-list{
+    max-height:80vh;
+    overflow: auto;
+}
+a{
+    text-decoration: none;
+}
+
+
+/*icon filter */
+a.coffee-filter-icons i.fas {
+    background-color: #4B1F0E;
+    color: #BE7656;
+    font-size: 1.5em;
+    border-radius: 50px;;
+    width: 1.7em;
+    height: 1.7em;
+}
+i.fas:hover{
+    color: #EFC3A4;
+}
+/*coffee facts*/
+div.coffee-facts-container{
+    width: 100%;
+    height: auto;
+    background-color: #794028;
+    border-radius: 10px;
+}
+div.cupacoffee{
+    background-image: url("/static/images/coffee-png-transparent-4.png");
+    width: clamp(80px, 5vw, 200px);
+    height: clamp(80px, 5vw, 200px);
+    background-size: cover;
+}
+
+/*coffee facts header*/
+div.carousel-inner h3 {
+
+}

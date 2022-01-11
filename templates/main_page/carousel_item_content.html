@@ -1,0 +1,15 @@
+<img src="{{ coffee.img_url }}" class="d-block w-100" alt="{{ coffee.name }}">
+<div class="image-overlay"></div>
+<div class="carousel-caption d-block m-0 p-0">
+    <h4>{{ coffee.name }}</h4>
+    <div class="coffee_attributes my-2 d-flex justify-content-center">
+        {% for param in coffee_params %}
+            {% if coffee[param] is boolean %}
+                {% if coffee[param] == true %}
+                    <i class="fas fa-{{ attributes[param] }} mx-2"></i>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class=""><p class="open-hours"><i class="fas fa-clock"></i>  8:00-17:00</p></div>
+</div>
