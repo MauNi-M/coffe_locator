@@ -18,57 +18,8 @@
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
 
 {#background color change#}
-<script>
-    function colorChange(element) {
-        element.classList.toggle("filter_pressed");
-    }
-</script>
+{% include 'filter_button_color_toggle.html' %}
 {#mapbox generate map#}
-<script>
-    mapboxgl.accessToken = 'pk.eyJ1IjoibWF1bmkiLCJhIjoiY2t5MjQ4aWp4MDlmNjJubnR3YzdpbW1zaSJ9.oEnKausGoruITO1RpPX_5g';
-
-    const map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mauni/cky26exau51m614qi4w99hhrq?optimize=true',
-        center: [-0.1258, 51.514],
-        zoom: 11
-    });
-    const geojson = {
-        type: 'FeatureCollection',
-        features: [
-            {% for cafe in cafes %}
-                {
-                    type: 'Feature',
-                    geometry: {
-                        type: 'Point',
-                        coordinates: {{cafe[0]}}
-                    },
-                    properties: {
-                        title: '{{ cafe[1] }}',
-                        description: '{{ cafe[2] }}',
-                        image: '{{ cafe[3] }}',
-                    }
-                },
-            {% endfor %}
-        ]
-    };
-
-    for (const feature of geojson.features) {
-        // create an HTML element for each feature
-        const el = document.createElement('div');
-        el.className = 'marker';
-        new mapboxgl.Marker(el)
-            .setLngLat(feature.geometry.coordinates)
-            .setPopup(
-                new mapboxgl.Popup({offset: 25}) // add popups
-                    .setHTML(
-                        `<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p><img src=${feature.properties.image}>`
-                    )
-            )
-            .addTo(map);
-    }
-
-    map.addControl(new mapboxgl.NavigationControl());
-</script>
+{% include "main_map_script.html" %}
 {% endblock scripts %}
 

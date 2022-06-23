@@ -1,0 +1,70 @@
+{% extends 'Home.html' %}
+
+{% block styles %}
+    {{ super() }}
+    <link rel="stylesheet" href={{ url_for('static', filename='edit_coffee_info.css') }}>
+{% endblock styles %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            {% include 'logo.html' %}
+        </div>
+        <div class="row row-cols-3">
+            <div class="col-3"></div>
+            <div class="col-6 form-container py-3">
+            {% include 'coffee_info_page/flash_messages.html' %}
+                <form method="POST" action={{ url_for('edit_page', incoming_coffee=coffee_to_edit.name, coffee_id=coffee_to_edit.id) }}>
+                    <input value={{ id }} name="id" type="hidden"/>
+                    {{ form.csrf_token }}
+                    {% for field in form %}
+                        {% if field.type == "RadioField" %}
+                            <div class="card mb-4">
+                                <div class="rating-container align-items-center">
+                                    <div class="text-dark">
+                                        {{ field.label(class='rating-text coffee_label') }}
+                                    </div>
+                                    <div class="rating">
+                                        {% set outer_loop = loop.index0 %}
+                                        {% for subfield in field %}
+                                            {% if loop.first %}
+                                                <td>{{ subfield(id=emotions[loop.index0]~outer_loop~loop.index0, class=emotions[loop.index0], checked="") }}</td>
+                                                <td>{{ subfield.label(for=emotions[loop.index0]~outer_loop~loop.index0) }}</td>
+                                            {% else %}
+                                                <td>{{ subfield(id=emotions[loop.index0]~outer_loop~loop.index0,class=emotions[loop.index0]) }}</td>
+                                                <td>{{ subfield.label(for=emotions[loop.index0]~outer_loop~loop.index0) }}</td>
+
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+
+                        {% elif field.type == "StringField" or field.type == "DecimalField" %}
+                            <div class="form-floating">
+                                {{ field(size=20, class='form-control', placeholder='name@example.com') }}{{ field.label(class="coffee_label") }}<br>
+                            </div>
+                        {% else %}
+                        {% endif %}
+                        {% if field.errors %}
+                            <ul class="errors">
+                                {% for error in field.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    {% endfor %}
+                    <button type="submit" class="btn submit_button">Submit</button>
+                </form>
+            </div>
+            <div class="col-3"></div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block scripts %}
+    {{ super() }}
+
+
+{% endblock scripts %}
+

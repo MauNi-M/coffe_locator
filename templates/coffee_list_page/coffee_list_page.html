@@ -1,52 +1,56 @@
 {% extends 'Home.html' %}
-
 {% block styles %}
     {{ super() }}
     <link rel="stylesheet" href="{{ url_for('static', filename="cafe_page_list_SS.css") }}">
+    {% include 'main_page/main_page_links.html' %}
 {% endblock styles %}
 {% block content %}
     <div class="container-fluid">
-        <div class="row pt-3 px-0">
+        <div class="row">
             {% include 'logo.html' %}
         </div>
         <div class="row justify-content-center coffee-list-container">
-            <div class="row justify-content-center">
-                <div class="col-6">
+            {#        city name#}
+            <div class="row">
+                <div class="col-sm-9 col-md-8 col-lg-6 col-10">
                     <div class="city-container">
                         <h3 class="display-5 mx-3">London, UK</h3>
                     </div>
                 </div>
             </div>
-            <div class="row mt-5">
-                <div class="col-3 coffee-list">
-                    <div class="row row-cols-3 row-cols-md-4 flex-wrap">
+            {#        list page content#}
+            <div class="row mt-2">
+                {#            coffee list#}
+                <div class="col-sm-9 col-md-8 col-lg-6 col-10 d-flex flex-column flex-md-row">
+{#                filter#}
+                    <div class="d-flex flex-row flex-md-column order-first order-md-last ms-2 filter-container justify-content-around align-items-center mb-2 mb-md-0">
                         {% for icon_name in iconnames %}
-                            <a class="col coffee-filter-icons text-center d-flex">
-                                <i class="fas fa-{{ icon_name }}"></i>
-                            </a>
+                                <a onclick="list_filter_colorChange(this)" class="coffee-filter-icons d-flex align-items-center justify-content-center">
+                                    <i class="fas fa-{{ icon_name }}"></i>
+                                </a>
                         {% endfor %}
                     </div>
-                </div>
-                <div class="col-6">
-                    <div class="coffee-list">
+
+                    <div class="coffee-list order-last order-md-first flex-fill">
                         {% include 'coffee_list_page/coffee_list.html' %}
                     </div>
                 </div>
-                <div class="col-3 coffee-facts position-relative">
+
+                <div class="col col-md-4 col-lg-3 d-none d-md-block coffee-facts position-relative">
                     <div class="coffee-facts-container p-3">
                         <div id="coffee_fact_carousel" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-inner">
                                 {% for key, value in coffee_facts_dict.items() %}
                                     {% if loop.first %}
-                                        <div class="carousel-item active">
-                                            <h5>{{ value.header }}</h5>
-                                            <div class="cupacoffee float-start me-2"></div>
+                                        <div class="carousel-item active coffee_fact_content">
+                                            <h5 class="coffee_fact_header">{{ value.header }}</h5>
+                                            <div class="cupacoffee float-lg-start float-none me-2 "></div>
                                             {{ value.content }}
                                         </div>
                                     {% else %}
-                                        <div class="carousel-item ">
-                                            <h5>{{ value.header }}</h5>
-                                            <div class="cupacoffee float-start me-2"></div>
+                                        <div class="carousel-item coffee_fact_content">
+                                            <h5 class="coffee_fact_header">{{ value.header }}</h5>
+                                            <div class="cupacoffee float-lg-start float-none me-2"></div>
                                             {{ value.content }}
                                         </div>
                                     {% endif %}
@@ -59,6 +63,9 @@
 
 
                 </div>
+                <div class="col d-none d-md-block map-locator m-md-0 px-2">
+                    {% include "main_page/map.html" %}
+                </div>
             </div>
         </div>
     </div>
@@ -67,5 +74,8 @@
 
 {% block scripts %}
     {{ super() }}
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
+    {% include 'filter_button_color_toggle.html' %}
+    {% include "main_map_script.html" %}
 {% endblock scripts %}
 

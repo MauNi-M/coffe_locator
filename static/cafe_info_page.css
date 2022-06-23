@@ -1,0 +1,40 @@
+
+div.cafe-image {
+    height: 65vh;
+    background-size: cover;
+    border-radius: 15px;
+    width: 30%;
+}
+
+div.cafe-information{
+    background-color: #4B1F0E;
+    color: #BE7656;
+    border-radius: 15px;
+    width: 30%;
+}
+div.map-box {
+    height: 65vh;
+    width: 30%;
+}
+
+div#map {
+    border-radius: 15px;
+
+}
+
+div.edit-button{
+    background-color: #BE7656;
+    width: 8vw;
+    height: 3vw;
+    border-radius: 10px;
+    text-align: center;
+}
+div.edit-button a{
+    text-decoration: none;
+        color: #4B1F0E;
+        font-size: 1.5em;
+    font-weight: bolder;
+}
+div.edit-button:hover{
+    background-color: #794028;
+}

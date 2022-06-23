@@ -1,0 +1,143 @@
+{% extends 'Home.html' %}
+
+{% block styles %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='cafe_info_page.css') }}">
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet'/>
+{% endblock styles %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            {% include 'logo.html' %}
+        </div>
+        <div class="row row-cols-3">
+            {#        image gallery#}
+            <div class="col m-3 cafe-image m-1" style="background-image: url({{ current_coffee.img_url }})">
+
+            </div>
+            {#        map section#}
+            <div class="map-box m-3 col m-1">
+                {% include 'main_page/map.html' %}
+            </div>
+            {#        coffee info section#}
+            <div class="col m-3 cafe-information">
+                <h1><strong>{{ current_coffee.name }}</strong></h1>
+                <div class="features d-flex flex-column mt-3">
+
+                    <div class="d-flex justify-content-between mx-4">
+                        <h5>Location:</h5>
+                        <p>{{ current_coffee.location }}</p>
+                    </div>
+
+                    <div class="d-flex justify-content-between mx-4">
+                        <h5>Sockets:</h5>
+                        {% if current_coffee.has_sockets %}
+                            <i class="fas fa-plug"></i>
+                        {% else %}
+                            <i class="fas fa-ban"></i>
+                        {% endif %}
+                    </div>
+
+                    <div class="d-flex justify-content-between mx-4">
+                        <h5>Restroom:</h5>
+                        {% if current_coffee.has_toilet %}
+                            <i class="fas fa-toilet"></i>
+                        {% else %}
+                            <i class="fas fa-toilet-paper-slash"></i>
+                        {% endif %}
+                    </div>
+
+                    <div class="d-flex justify-content-between mx-4">
+                        <h5>Can take calls:</h5>
+                        {% if current_coffee.can_take_calls %}
+                            <i class="fas fa-phone"></i>
+                        {% else %}
+                            <i class="fas fa-phone-slash"></i>
+                        {% endif %}
+                    </div>
+
+                    <div class="d-flex justify-content-between mx-4">
+                        <h5>Has Wi-Fi:</h5>
+                        {% if current_coffee.has_wifi %}
+                            <i class="fas fa-wifi"></i>
+                        {% else %}
+                            <i class="fas fa-wifi-slash"></i>
+                        {% endif %}
+                    </div>
+
+                <div class="d-flex justify-content-between mx-4">
+                        <h5>Number of seats:</h5>
+                        {% if current_coffee.seats %}
+                            <i class="fas fa-chair"></i>
+                        {% else %}
+                            <i class="fas fa-ban"></i>
+                        {% endif %}
+                    </div>
+
+                <div class="d-flex justify-content-between mx-4">
+                        <h5>Coffee price:</h5>
+                        <p>{{ current_coffee.coffee_price }}</p>
+                    </div>
+                </div>
+                <div class="coffee-info-bottom my-3">
+                    <div></div>
+                    <div class="edit-button">
+                        <a href={{ url_for('edit_page', incoming_coffee=current_coffee.name, coffee_id=current_coffee.id) }}>Edit</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block scripts %}
+    {{ super() }}
+    {#mapbox generate map#}
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoibWF1bmkiLCJhIjoiY2t5MjQ4aWp4MDlmNjJubnR3YzdpbW1zaSJ9.oEnKausGoruITO1RpPX_5g';
+
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mauni/cky26exau51m614qi4w99hhrq?optimize=true',
+            center: {{lat_lon(current_coffee)}},
+            zoom: 13
+        });
+        const geojson = {
+            type: 'FeatureCollection',
+            features: [
+                {
+                    type: 'Feature',
+                    geometry: {
+                        type: 'Point',
+                        coordinates: {{lat_lon(current_coffee)}}
+                    },
+                    properties: {
+                        title: '{{ current_coffee.name }}',
+                        description: '{{current_coffee.location}}',
+                        image: '{{current_coffee.img_url}}',
+                    }
+                },
+            ]
+        };
+
+        for (const feature of geojson.features) {
+            // create an HTML element for each feature
+            const el = document.createElement('div');
+            el.className = 'marker';
+            new mapboxgl.Marker(el)
+                .setLngLat(feature.geometry.coordinates)
+                .setPopup(
+                    new mapboxgl.Popup({offset: 25}) // add popups
+                        .setHTML(
+                            `<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p><img src=${feature.properties.image}>`
+                        )
+                )
+                .addTo(map);
+        }
+
+        map.addControl(new mapboxgl.NavigationControl());
+    </script>
+
+{% endblock scripts %}
+

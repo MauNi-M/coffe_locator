@@ -1,0 +1,107 @@
+div.form-container {
+    background-color: #4B1F0E;
+    border-radius: 15px;
+    max-height: 77vh;
+    overflow: auto;
+}
+
+.rating-container{
+    display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: justify;
+	-ms-flex-pack: justify;
+	justify-content: space-between;
+	padding: 0.4rem 0.8rem;
+	width: 100%;
+}
+.rating {
+	background-color: #4B1F0E;
+	padding: 0.4rem 0.4rem 0.1rem 0.4rem;
+	border-radius: 2.2rem;
+}
+svg {
+	fill: #EFC3A4;
+	height: 3.6rem;
+	width: 3.6rem;
+	margin: 0.2rem;
+}
+button {
+	text-align: center;
+}
+
+input[type="radio"]{
+	position: absolute;
+	opacity: 0;
+}
+label{
+	position: relative;
+}
+
+label > svg {
+	-webkit-transition: all 0.2s;
+	transition: all 0.2s;
+}
+
+label > svg {
+	cursor: pointer;
+}
+
+input[class="super-happy"]:hover + label > svg,
+input[class="super-happy"]:checked + label > svg,
+input[class="super-happy"]:focus + label > svg {
+	fill: rgb(0, 109, 217);
+}
+
+input[class="happy"]:hover + label > svg,
+input[class="happy"]:checked + label > svg,
+input[class="happy"]:focus + label > svg {
+	fill: rgb(0, 204, 79);
+}
+
+input[class="neutral"]:hover + label > svg,
+input[class="neutral"]:checked + label > svg,
+input[class="neutral"]:focus + label > svg {
+	fill: rgb(232, 214, 0);
+}
+
+input[class="sad"]:hover + label > svg,
+input[class="sad"]:checked + label > svg,
+input[class="sad"]:focus + label > svg {
+	fill: rgb(229, 132, 0);
+}
+
+input[class="super-sad"]:hover + label > svg,
+input[class="super-sad"]:checked + label > svg,
+input[class="super-sad"]:focus + label > svg {
+	fill: rgb(239, 42, 16);
+}
+
+.form-control{
+    background-color: #EFC3A4;
+
+}
+
+.card{
+	background-color: #EFC3A4;
+}
+label.coffee_label{
+    color: #BE7656;
+}
+
+button.submit_button {
+    background-color: #BE7656;
+    width: 8vw;
+    height: 3vw;
+    border-radius: 10px;
+}
+
+button.submit_button {
+    text-decoration: none;
+    color: #4B1F0E;
+    font-weight: bolder;
+}
+
+button.submit_button:hover {
+    background-color: #794028;
+}

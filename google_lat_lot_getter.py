@@ -1,14 +1,19 @@
-from pprint import pprint
+from pprint import pprint, pp
 
 import requests
+from os import getenv
 
+GOOGLE_API_KEY = getenv("GOOGLE_MAPS_API_KEY")
 
-def get_lat_lon_location(cafe_object):
-    location_url = cafe_object.map_url
-    # print(f"requested url: {location_url}")
-    custom_headers = headers = {
+custom_headers ={
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) '
                       'Chrome/39.0.2171.95 Safari/537.36'}
+
+
+def get_lat_lon_location_no_page(map_url):
+    location_url = map_url
+    # print(f"requested url: {location_url}")
+
     response = requests.get(location_url, allow_redirects=False)
     # print(response.status_code)
     # for key, value in response.headers.items():
@@ -20,10 +25,8 @@ def get_lat_lon_location(cafe_object):
     # which has the latitude and longitude of the shortened address link that i need for the mapbox api
     # print(response.status_code)
     # print(response.history)
-    return response.headers["location"]
+    google_address = response.headers["location"]
 
-
-def get_latitude_longitude_from_google_address(google_address):
     # print(google_address)
     # print(google_address.split("/"))
     try:
@@ -35,3 +38,17 @@ def get_latitude_longitude_from_google_address(google_address):
         print(google_address.split("/"))
         return None
     return [longitude, latitude]
+
+def get_lat_lon_location_page(cafe_name):
+    google_places_api_url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json"
+    required_params = {"fields": "geometry",
+                       "input": cafe_name,
+                       "inputtype": "textquery",
+                       "key": GOOGLE_API_KEY}
+    response = requests.get(google_places_api_url, params=required_params)
+    # pp(response.json())
+    geometry = response.json()["candidates"][0]["geometry"]["location"]
+    longitude = geometry["lng"]
+    latitude = geometry["lat"]
+    return [longitude, latitude]
+

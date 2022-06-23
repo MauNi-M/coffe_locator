@@ -1,0 +1,50 @@
+<script>
+    mapboxgl.accessToken = "{{ mapbox_key }}";
+    mapboxgl.attributionControl = false;
+    mapboxgl.boxZoom = false;
+    mapboxgl.maxZoom=15;
+    mapboxgl.minZoom=5;
+
+    const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/light-v10?optimize=true',
+        center: [-0.1258, 51.514],
+        zoom: 11
+    });
+    const geojson = {
+        type: 'FeatureCollection',
+        features: [
+            {% for cafe in cafes_with_loc %}
+                {
+                    type: 'Feature',
+                    geometry: {
+                        type: 'Point',
+                        coordinates: {{cafe[0]}}
+                    },
+                    properties: {
+                        title: '{{ cafe[1] }}',
+                        description: '{{ cafe[2] }}',
+                        image: '{{ cafe[3] }}',
+                    }
+                },
+            {% endfor %}
+        ]
+    };
+
+    for (const feature of geojson.features) {
+        // create an HTML element for each feature
+        const el = document.createElement('div');
+        el.className = 'marker';
+        new mapboxgl.Marker(el)
+            .setLngLat(feature.geometry.coordinates)
+            .setPopup(
+                new mapboxgl.Popup({offset: 25}) // add popups
+                    .setHTML(
+                        `<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p><img src=${feature.properties.image}>`
+                    )
+            )
+            .addTo(map);
+    }
+
+    map.addControl(new mapboxgl.NavigationControl());
+</script>
